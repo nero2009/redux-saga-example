@@ -1,13 +1,14 @@
 import { takeLatest, call, put} from 'redux-saga/effects'
 import axios from 'axios'
-import {URI,API_KEY, API_CALL_FAILURE, API_CALL_SUCCESS, API_CALL_REQUEST} from '../Constants'
+import {API_CALL_FAILURE, API_CALL_SUCCESS, API_CALL_REQUEST} from '../Constants'
+import {URI , API_KEY} from '../Secrets'
 
-//watcher saga: watches for actions dispatched to the store, start worker saga
-export function* watcherSaga(){
-    yield takeLatest(API_CALL_REQUEST, workerSaga)
+//Watches for the API_CALL_REQUEST action then starts the fetchImage Saga
+export function* watcher(){
+    yield takeLatest(API_CALL_REQUEST, fetchImagesSaga)
 }
 
-//function that makes the api request and returns a Promise for response
+//function that makes the api call and returns a Promise for response
 function fetchImages(searchInput){
     console.log(searchInput)
     
@@ -18,8 +19,11 @@ function fetchImages(searchInput){
 }
 
 //worker saga:  makes the api call when watcher saga sees the action
-
-function* workerSaga({searchInput}){
+/*
+both call and put are refered to object effects, 
+we assign the yielded value to respoense so we can use it later in the function
+*/
+function* fetchImagesSaga({searchInput}){
     console.log("worker")
     try{
         let params =[searchInput]
@@ -28,6 +32,7 @@ function* workerSaga({searchInput}){
         
         
         // dispatch a success action to the store with the new dog
+        // the put effect works like the redux dispatch, so here we dispatch an action with type of API_CALL_SUCCESS and the results from our Api call.
         yield put({type: API_CALL_SUCCESS, images})
     }catch(error){
         
