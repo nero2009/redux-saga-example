@@ -1,4 +1,4 @@
-#Image Viewer using React, Redux, Redux-saga and Pixabay Api
+# Image Viewer using React, Redux, Redux-saga and Pixabay Api
 
 ## Install Dependencies
 ```
@@ -10,4 +10,4 @@ Yarn add
 Yarn Start
 ```
 
-[^longnote]: If you notice any bug or have suggestions that can improve this Application and make it easier to understand please send a PR.😉 
+[^1]: If you notice any bug or have suggestions that can improve this Application and make it easier to understand please send a PR.😉 
